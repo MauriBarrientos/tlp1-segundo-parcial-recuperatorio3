@@ -22,11 +22,6 @@ const Pedido = sequelize.define('Reserva',{
         allowNull: false,
         defaultVale: new Date().getTime(),
     },
-    menuInfantil: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-    },
     estado: {
         type: DataTypes.BOOLEAN,
         defaultValue: true

@@ -1,28 +1,27 @@
-const ctrlReserva = {};
-const Reserva = require('../models/Reserva');
+const ctrlPedido = {};
+const Pedido = require('../models/Pedido');
 
-//Controlador para obtener todas las reservas
+//Controlador para obtener todos los pedidos
 
-ctrlReserva.obtenerReservas = async (req, res) => {
+ctrlPedido.obtenerPedidos = async (req, res) => {
     try {
-        const reservas = await Reserva.findAll({
+        const pedidos = await Pedido.findAll({
             where: {
-                estado: true,
-                // reservaId: req.reserva.id
+                estado: true
             }
         });
 
-        if (!reservas || reservas.length === 0) {
+        if (!pedidos || pedidos.length === 0) {
             throw ({
                 status: 404,
-                message: 'No hay reservas registradas'
+                message: 'No hay Pedidos registradas'
             })
         }
-        console.log(reservas)
+        console.log(pedidos)
 
-        return res.json(reservas);
+        return res.json(pedidos);
     } catch (error) {
-        console.log('Error de trycatch en obtener reservas')
+        console.log('Error de trycatch en obtener pedidos')
         console.log(error)
         return res.status(error.status || 500).json({
             message: error.message || 'Error interno del servidor'
@@ -30,52 +29,49 @@ ctrlReserva.obtenerReservas = async (req, res) => {
     }
 }
 
-//Cotrl para obtener una reserva
-ctrlReserva.obtenerReserva = async (req, res) => {
+//Cotrl para obtener una Pedido
+ctrlPedido.obtenerPedido = async (req, res) => {
     const {id} = req.params;
 
     try { 
-        const reserva = await Reserva.finOne({
+        const pedido = await Pedido.finOne({
             where: {
                 id,
                 estado: true
             }
         });
-        if (!reserva){
+        if (!pedido){
             throw ({
                 status: 404,
-                message: 'No existe tal reserva'
+                message: 'No existe tal pedido'
             })
         }
 
-        return res.json(reserva);
+        return res.json(pedido);
     }catch (error) {
         return res.status (error.status || 500).json(error.message|| 'Error interno del server');
     }
 }
 
-ctrlReserva.crearReserva = async (req, res) => {
-    const { nombre, apellidos, fechaIngreso, fechaSalida, numero, nroHabitacion, nroPersonas} = req.body;
+ctrlPedido.crearPedido = async (req, res) => {
+    const { nombrePedido, nroMesa, nroPedido, horaPedido } = req.body;
     
     try {
-        const reserva = await Reserva.create({
-            nombre,
-            apellidos,
-            fechaIngreso,
-            fechaSalida,
-            numero,
-            nroHabitacion,
-            nroPersonas
+        const pedido = await Pedido.create({
+            nombrePedido,
+            nroMesa,
+            nroPedido,
+            horaPedido
         });
 
-        if (!reserva) {
+        if (!pedido) {
             throw ({
                 status: 400,
-                message: 'No se pudo crear la reserva'
+                message: 'No se pudo crear el Pedido'
             })
         }
 
-        return res.json(reserva);
+        return res.json(pedido);
     } catch (error) {
         console.log(error);
         return res.status(error.status || 500).json(error.message || 'Error interno del servidor');
@@ -83,20 +79,17 @@ ctrlReserva.crearReserva = async (req, res) => {
 }
 
 
-//CTRL para actualizar una reserva
-ctrlReserva.actualizarReserva = async (req, res) => {
+//CTRL para actualizar una Pedido
+ctrlPedido.actualizarPedido = async (req, res) => {
     const { id } = req.params;
-    const { nombre, apellidos, fechaIngreso, fechaSalida, numero, nroHabitacion, nroPersonas } = req.body;
+    const { nombrePedido, nroMesa, nroPedido, horaPedido } = req.body;
     
     try {
-        const reservaActualizada = await Reserva.update({
-            nombre,
-            apellidos,
-            fechaIngreso,
-            fechaSalida,
-            numero,
-            nroHabitacion,
-            nroPersonas
+        const pedidoActualizado = await Pedido.update({
+            nombrePedido,
+            nroMesa,
+            nroPedido,
+            horaPedido
         }, {
             where: {
                 id,
@@ -104,16 +97,16 @@ ctrlReserva.actualizarReserva = async (req, res) => {
             }
         });
 
-        if (!reservaActualizada) {
+        if (!pedidoActualizado) {
             throw ({
                 status: 400,
-                message: 'No se pudo actualizar la reserva'
+                message: 'No se pudo actualizar el Pedido'
             })
         }
 
         return res.json({
-            message: 'reserva actualizada correctamente',
-            reservaActualizada
+            message: 'Pedido actualizada correctamente',
+            pedidoActualizado
             
         });
     } catch (error) {
@@ -121,13 +114,13 @@ ctrlReserva.actualizarReserva = async (req, res) => {
     }
 }
 
-//CTRL para eliminar reservas
+//CTRL para eliminar Pedidos
 
-ctrlReserva.eliminarReserva = async (req, res) => {
+ctrlPedido.eliminarPedido = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const reservaEliminada = await Reserva.update({
+        const pedidoEliminado = await Pedido.update({
             estado: false
         }, {
             where: {
@@ -136,27 +129,27 @@ ctrlReserva.eliminarReserva = async (req, res) => {
             }
         });
 
-        if (!reservaEliminada) {
+        if (!pedidoEliminado) {
             throw ({
                 status: 400,
-                message: 'No se pudo eliminar la reserva'
+                message: 'No se pudo eliminar el Pedido'
             })
         }
 
-        return res.json({reservaEliminada, message: 'reserva eliminada correctamente' });
+        return res.json({pedidoEliminado, message: 'Pedido eliminado correctamente' });
     } catch (error) {
         return res.status(error.status || 500).json(error.message || 'Error interno del servidor');
     }
 }
 
 // ==========================================
-//         Rutas para CRUD de reservas
+//         Rutas para CRUD de Pedidos
 // ==========================================
 
-// Obtener todas las reservas
-// Obtener una reserva
-// Crear una reserva
-// Actualizar una reserva
-// Eliminar una reserva de forma lógica
+// Obtener todas las Pedidos
+// Obtener una Pedido
+// Crear una Pedido
+// Actualizar una Pedido
+// Eliminar una Pedido de forma lógica
 
-module.exports = ctrlReserva;
+module.exports = ctrlPedido;
