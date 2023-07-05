@@ -7,6 +7,8 @@ const app = express();
 const morgan = require('morgan');
 const {sequelize} = require('./database')
 require('ejs');
+// Configuración de motor de plantillas EJS
+app.set('view engine', 'ejs');
 //Instancia de conexion a la base de datos
 sequelize.authenticate()
     .then(() => console.log('Conexión a base de datos exitosa'))
@@ -28,7 +30,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
-app.use('/api', require('./routes/reserva.routes'));
+app.use('/', require('./routes/pedido.routes'));
 
 // TODO: Si la petición no coincide con ninguna de las rutas declaradas, mostrar error 404
 

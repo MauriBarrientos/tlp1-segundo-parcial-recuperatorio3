@@ -142,14 +142,5 @@ ctrlPedido.eliminarPedido = async (req, res) => {
     }
 }
 
-// ==========================================
-//         Rutas para CRUD de Pedidos
-// ==========================================
-
-// Obtener todas las Pedidos
-// Obtener una Pedido
-// Crear una Pedido
-// Actualizar una Pedido
-// Eliminar una Pedido de forma lógica
 
 module.exports = ctrlPedido;
