@@ -7,14 +7,14 @@ const app = express();
 const morgan = require('morgan');
 const {sequelize} = require('./database')
 require('ejs');
-
-//Instancia de conexion con el puerto
-const port = process.env.PORT || 4500;
-
 //Instancia de conexion a la base de datos
 sequelize.authenticate()
     .then(() => console.log('Conexión a base de datos exitosa'))
     .catch((error) => console.log('Error al conectar a base de datos', error));
+
+
+//Instancia de conexion con el puerto
+const port = process.env.PORT || 4500;
 
 
 // Middlewares
