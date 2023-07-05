@@ -1,5 +1,5 @@
 const { sequelize, DataTypes } = require('../database');
-const Pedido = sequelize.define('Reserva',{
+const Pedido = sequelize.define('Pedido',{
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -20,7 +20,7 @@ const Pedido = sequelize.define('Reserva',{
     codigoPedido: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultVale: new Date().getTime(),
+        defaultValue: new Date().getTime(),
     },
     estado: {
         type: DataTypes.BOOLEAN,

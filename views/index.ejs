@@ -3,7 +3,8 @@
     <div class="container">
 
         <div class="row mt-5">
-            <h1 class="text-center border-botton">Lista de Reservas</h1>
+            <h1 class="text-center border-botton">Cocina de IPF</h1>
+            <h1 class="text-center border-botton">Lista de Pedidos</h1>
             <div class="col">
                 <div class="col-md-3 mb-2">
                     <a href="/pedido/crear" class="btn btn sm btn-primary" id>Nuevo </a>
@@ -12,19 +13,19 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Columna 1</th>
-                            <th>Columna 2</th>
-                            <th>Columna 3</th>
-                            <th>Columna n</th>
+                            <th>Nombre Plato</th>
+                            <th>Hora Pedido</th>
+                            <th>Numero Mesa</th>
+                            <th>Codigo Pedido</th>
                         </tr>
                     </thead>
-                    <tbody id="">
+                    <tbody id="listadoPedidos">
           
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
+    <script src="/js/lista_pedidos.js"></script>
 
     <%- include('partials/footer') %>

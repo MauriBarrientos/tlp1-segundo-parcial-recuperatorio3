@@ -12,7 +12,7 @@
                     <h2 class="text-center">Editar Pedido</h2>
                     <hr>
                     <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre</label>
+                        <label for="nombre" class="form-label">Nombre Pedido</label>
                         <input type="text"  id="nombre" class="form-control" id="nombre">
                     </div>
                     <div class="mb-3">
@@ -20,8 +20,8 @@
                         <input type="time" class="form-control" id="nombrePedido" name="nombrePedido">
                     </div>
                     <div class="mb-3">
-                        <label for="numero" class="form-label">Numero Mesa</label>
-                        <input type="number" class="form-control" id="numero" name="numero">
+                        <label for="nroMesa" class="form-label">Numero Mesa</label>
+                        <input type="number" class="form-control" id="nroMesa" name="nroMesa">
                     </div>
                     <button type="submit" class="btn btn-warning w-100">
                         Editar
@@ -31,70 +31,7 @@
         </div>
     </div>
 
-    <script>
-        // Referencia al formulario
-        const formEditar = document.querySelector('#formEditar');
-        const titulo = document.querySelector('#titulo');
-        const descripcion = document.querySelector('#descripcion');
-        const tareaId = formEditar.dataset.id;
-
-        // Funcion para obtener los datos de la tarea cuando se carga la página
-        document.addEventListener('DOMContentLoaded', async () => {
-            const response = await fetch(`http://localhost:4000/api/tarea/${tareaId}`)
-            const data = await response.json();
-
-            titulo.value = data.titulo;
-            descripcion.value = data.descripcion;
-        })
-
-
-        // Escuchar el evento submit
-        formEditar.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            // Se crea un objeto con los datos del formulario
-            const formData = {
-                titulo: e.target.titulo.value,
-                descripcion: e.target.descripcion.value,
-            }
-
-            try {
-                // Se envia la peticion al servidor
-                const resp = await fetch(`http://localhost:4000/api/tarea/${tareaId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                })
-
-                if(resp.status !== 200){
-                    throw({
-                        message: 'Error al editar la tarea'
-                    })
-                }
-
-                const data = await resp.json();
-
-                Swal.fire({
-                    icon: 'success',
-                    title: data.message,
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                setTimeout(() => {
-                    window.location.href = '/tareas';
-                }, 1500);
-
-            } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: error.message,
-                    timer: 2000,
-                })
-            }
-        });
-    </script>
+    <script src="/js/editar_pedido.js"></script>
 
 
     <%- include('../partials/footer') %>

@@ -7,6 +7,7 @@ const app = express();
 const morgan = require('morgan');
 const {sequelize} = require('./database')
 require('ejs');
+
 // Configuración de motor de plantillas EJS
 app.set('view engine', 'ejs');
 //Instancia de conexion a la base de datos
