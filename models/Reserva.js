@@ -1,70 +1,58 @@
-// const { sequelize, DataTypes } = require('../database');
-// const Reserva = sequelize.define('Reserva',{
-//     id: {
-//         type: DataTypes.INTEGER,
-//         primaryKey: true,
-//         autoincrement: true
-//     },
-//     // nombre: {
-//     //     type: DataTypes.STRING,
-//     //     allowNull: false
-//     // },
-//     // apellidos: {
-//     //     type: DataTypes.STRING,
-//     //     allowNull: false,
-//     // },
-//     // fechaIngreso: {
-//     //     type: DataTypes.DATEONLY,
-//     //     allowNull: false,
-//     // },
-//     // fechaSalida: {
-//     //     type: DataTypes.DATEONLY,
-//     //     allowNull: false,
-//     // },
+const { sequelize, DataTypes } = require('../database');
+const Pedido = sequelize.define('Reserva',{
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoincrement: true
+    },
+    nombrePedido: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    nroMesa: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    horaPedido: {
+        type: DataTypes.TIME,
+        allowNull: false,
+    },
+    codigoPedido: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultVale: new Date().getTime(),
+    },
+    menuInfantil: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+    },
+    estado: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    },
+    createdAt: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updatedAt: {
+        type: DataTypes.DATEONLY,
+        allowNull: false,
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    deletedAt: {
+        type: DataTypes.DATEONLY,
+        allowNull: true
+    }
+},{
+    createdAt: true,
+    updatedAt: true,
+    deletedAt: true,
+    tableName: 'pedidos'
+});
 
-//     numero: { 
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//     },
-//     nroHabitacion:{
-//     type: DataTypes.INTEGER,
-//     allowNull: false,
-//     },
-//     nroPersona: {
-//         type: DataTypes.INTEGER,
-//         allowNull: false,
-//     },
-//     codigoReserva: {
-//         type: DataTypes.STRING,
-//         allowNull: false,
-//         defaultVale: new Date().getTime(),
-//     },
-//     estado: {
-//         type: DataTypes.BOOLEAN,
-//         defaultValue: true
-//     },
-//     createdAt: {
-//         type: DataTypes.DATE,
-//         allowNull: false,
-//         defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
-//     },
-//     updatedAt: {
-//         type: DataTypes.DATE,
-//         allowNull: false,
-//         defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
-//     },
-//     deletedAt: {
-//         type: DataTypes.DATE,
-//         allowNull: true
-//     }
-// },{
-//     createdAt: true,
-//     updatedAt: true,
-//     deletedAt: true,
-//     tableName: 'reserva'
-// });
+//Crear la tabla si esta no existe
+Pedido.sync({alter: true});
 
-// //Crear la tabla si esta no existe
-// Reserva.sync({alter: true});
-
-// module.exports = Reserva;
+module.exports = Pedido;
